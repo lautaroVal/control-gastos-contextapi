@@ -1,4 +1,4 @@
-import BadgetForm from "./components/BadgetForm"
+import BadgetForm from "./components/BudgetForm"
 
 function App() {
 
