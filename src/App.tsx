@@ -1,7 +1,8 @@
+import { useContext } from "react"
 import BadgetForm from "./components/BudgetForm"
+import { BudgetContext } from "./context/BudgetContext"
 
 function App() {
-
   return (
     <>
       <header className="bg-blue-600 py-8 max-h-72">
