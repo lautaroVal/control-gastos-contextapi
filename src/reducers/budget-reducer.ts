@@ -1,23 +1,35 @@
+import { v4 as uuidv4 } from "uuid"
+import type { DraftExpense, Expense } from "../types"
 
 export type BudgetActions =
     { type: 'add-budget', payload: { budget: number } } |
-    { type: 'show-modal'} |
-    { type: 'hide-modal'}
+    { type: 'show-modal' } |
+    { type: 'hide-modal' } |
+    { type: 'add-expense', payload: { expense: DraftExpense } }
 
 export type BudgetState = {
     budget: number,
     modal: boolean
+    expenses: Expense[]
 }
 
 export const initialState: BudgetState = {
     budget: 0,
-    modal: false
+    modal: false,
+    expenses: []
+}
+
+const createExpense = (dratExpense: DraftExpense): Expense => {
+    return {
+        ...dratExpense,
+        id: uuidv4()
+    }
 }
 
 export const BudgetReducer = (
-        state: BudgetState = initialState,
-        action: BudgetActions
-    ): BudgetState => {
+    state: BudgetState = initialState,
+    action: BudgetActions
+): BudgetState => {
 
     if (action.type === 'add-budget') {
         return {
@@ -26,21 +38,30 @@ export const BudgetReducer = (
         }
     }
 
-    if(action.type === 'show-modal') {
+    if (action.type === 'show-modal') {
 
         return {
             ...state,
             modal: true
         }
-     }
+    }
 
-     if(action.type === 'hide-modal') {
+    if (action.type === 'hide-modal') {
 
         return {
             ...state,
             modal: false
         }
-     }
+    }
+
+    if (action.type === 'add-expense') {
+
+        const expense = createExpense(action.payload.expense)
+        return {
+            ...state,
+            expenses: [...state.expenses, expense]
+        }
+    }
 
     return state
 }
