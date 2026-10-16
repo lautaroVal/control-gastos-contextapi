@@ -5,7 +5,7 @@ import DatePicker from 'react-date-picker';
 import "react-calendar/dist/Calendar.css";
 import "react-date-picker/dist/DatePicker.css";
 import ErrorMessage from "./ErrorMessage";
-import {useBudget} from "../hooks/useBudget";
+import { useBudget } from "../hooks/useBudget";
 
 export default function ExpenseForm() {
     const [expense, setExpense] = useState<DraftExpense>({
@@ -19,8 +19,8 @@ export default function ExpenseForm() {
     const { dispatch, state } = useBudget()
 
     useEffect(() => {
-        if(state.editingId) {
-            const editingExpense = state.expenses.filter( currentExpense => currentExpense.id === state.editingId)[0]
+        if (state.editingId) {
+            const editingExpense = state.expenses.filter(currentExpense => currentExpense.id === state.editingId)[0]
             setExpense(editingExpense)
         }
     }, [state.editingId])
@@ -45,15 +45,15 @@ export default function ExpenseForm() {
         e.preventDefault()
 
         //Validar
-        if(Object.values(expense).includes('')){
+        if (Object.values(expense).includes('')) {
             setError('Todos los campos son obligatorios')
             return
         }
 
         //Agregar o actualizar el Gasto
-        if(state.editingId) {
-            dispatch({ type: 'update-expense', payload: {expense: {...expense, id: state.editingId}}})
-        }else{
+        if (state.editingId) {
+            dispatch({ type: 'update-expense', payload: { expense: { ...expense, id: state.editingId } } })
+        } else {
             dispatch({ type: 'add-expense', payload: { expense } })
         }
 
@@ -70,9 +70,9 @@ export default function ExpenseForm() {
         <form action="" className="space-y-5" onSubmit={handleSubmit}>
             <legend
                 className="uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2"
-            >Nuevo Gasto</legend>
+            >{state.editingId ? 'Guardad Cambios' : 'Nuevo Gasto'}</legend>
 
-            {error && <ErrorMessage>{error}</ErrorMessage> }
+            {error && <ErrorMessage>{error}</ErrorMessage>}
 
             <div className="flex flex-col gap-2">
                 <label
@@ -142,7 +142,7 @@ export default function ExpenseForm() {
 
             <input
                 type="submit"
-                value="Registrar Gasto"
+                value={state.editingId ? 'Guardad Cambios' : 'Registrar Gasto'}
                 className="bg-blue-600 w-full p-2 text-white uppercase font-bold hover:bg-blue-700 cursor-pointer transition-color rounded-lg"
             />
 
