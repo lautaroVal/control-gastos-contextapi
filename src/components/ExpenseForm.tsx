@@ -50,8 +50,12 @@ export default function ExpenseForm() {
             return
         }
 
-        //Agregar un Nuevo Gasto
-        dispatch({ type: 'add-expense', payload: { expense } })
+        //Agregar o actualizar el Gasto
+        if(state.editingId) {
+            dispatch({ type: 'update-expense', payload: {expense: {...expense, id: state.editingId}}})
+        }else{
+            dispatch({ type: 'add-expense', payload: { expense } })
+        }
 
         //Reiniciar el Formulario
         setExpense({
