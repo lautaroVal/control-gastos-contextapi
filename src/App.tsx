@@ -10,7 +10,7 @@ function App() {
   const { state } = useBudget()
   const isValidBudget = useMemo(() => state.budget > 0, [state.budget])
 
-  useEffect(() => { 
+  useEffect(() => {
     localStorage.setItem('budget', state.budget.toString())
     localStorage.setItem('expenses', JSON.stringify(state.expenses))
   }, [state])
@@ -24,14 +24,14 @@ function App() {
       </header>
 
       <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg mt-10 p-10">
-        {isValidBudget ? <BudgetTracker/> : <BudgetForm/>}
+        {isValidBudget ? <BudgetTracker /> : <BudgetForm />}
       </div>
 
       {isValidBudget && (
         <main className="max-w-3xl mx-auto p-10">
-          <FilterByCategory/>
-          <ExpenseList/>
-          <ExpenseModal/>
+          <FilterByCategory />
+          <ExpenseList />
+          <ExpenseModal />
         </main>
       )}
     </>
