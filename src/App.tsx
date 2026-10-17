@@ -4,9 +4,9 @@ import { useBudget } from "./hooks/useBudget"
 import BudgetTracker from "./components/BudgetTracker"
 import ExpenseModal from "./components/ExpenseModal"
 import ExpenseList from "./components/ExpenseList"
+import FilterByCategory from "./components/FilterByCategory"
 
 function App() {
-
   const { state } = useBudget()
   const isValidBudget = useMemo(() => state.budget > 0, [state.budget])
 
@@ -29,6 +29,7 @@ function App() {
 
       {isValidBudget && (
         <main className="max-w-3xl mx-auto p-10">
+          <FilterByCategory/>
           <ExpenseList/>
           <ExpenseModal/>
         </main>
